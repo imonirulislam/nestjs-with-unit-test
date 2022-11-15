@@ -1,6 +1,6 @@
 services:
-  api:
-    container_name: nestjs-with-unit-test
+  dev:
+    container_name: nestjs-with-unit-test-dev
     build:
       dockerfile: Dockerfile
       context: .
@@ -14,3 +14,17 @@ services:
     command: npm run start:dev
     ports:
       - 3000:3000
+
+  prod:
+    container_name: nestjs-with-unit-test-prod
+    build:
+      dockerfile: Dockerfile
+      context: .
+      # Only will build development stage from our dockerfile
+      target: production
+    volumes:
+      - .:/usr/src/app
+    env_file:
+    - .env
+    ports:
+      - 3000:300
